@@ -38,7 +38,7 @@ public class EmployeeValidator {
         if (code_duplicate_check_flag) {
             EntityManager em = DBUtil.createEntityManager();
 
-            long employees_count = em.createNamedQuery("checkRegisteredCode",Long.class).setParameter("code",code).getSingleResult();
+            long employees_count = (long)em.createNamedQuery("checkRegisteredCode",Long.class).setParameter("code",code).getSingleResult();
 
             em.close();
 
