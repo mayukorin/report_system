@@ -93,6 +93,10 @@ button {
     background-color:#f8d7da;
 }
 
+select {
+    height:30px;
+}
+
 table#employee_list th {
     width: 30%;
     padding: 10px 2%;
