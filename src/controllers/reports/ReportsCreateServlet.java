@@ -54,38 +54,36 @@ public class ReportsCreateServlet extends HttpServlet {
             String rd_str = request.getParameter("report_date");
             if (rd_str != null && !rd_str.equals("")) {
                 report_date = Date.valueOf(request.getParameter("report_date"));
+            }
 
-                r.setReport_date(report_date);
+            r.setReport_date(report_date);
 
-                r.setTitle(request.getParameter("title"));
-                r.setContent(request.getParameter("content"));
+            r.setTitle(request.getParameter("title"));
+            r.setContent(request.getParameter("content"));
 
-                Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-                r.setCreated_at(currentTime);
-                r.setUpdated_at(currentTime);
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+            r.setCreated_at(currentTime);
+            r.setUpdated_at(currentTime);
 
-                List<String>errors = ReportValidator.validate(r);
-                if (errors.size() > 0) {
-                    em.close();
+            List<String>errors = ReportValidator.validate(r);
+            if (errors.size() > 0) {
+                em.close();
 
-                    request.setAttribute("_token", request.getSession().getId());
-                    request.setAttribute("report",r);
-                    request.setAttribute("errors",errors);
+                request.setAttribute("_token", request.getSession().getId());
+                request.setAttribute("report",r);
+                request.setAttribute("errors",errors);
 
-                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/new.jsp");
-                    rd.forward(request, response);
-                } else {
-                    em.getTransaction().begin();
-                    em.persist(r);
-                    em.getTransaction().commit();
-                    em.close();
-                    request.getSession().setAttribute("flush", "登録が完了しました。");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/new.jsp");
+                rd.forward(request, response);
+            } else {
+                em.getTransaction().begin();
+                em.persist(r);
+                em.getTransaction().commit();
+                em.close();
+                request.getSession().setAttribute("flush", "登録が完了しました。");
 
-                    response.sendRedirect(request.getContextPath() + "/reports/index");
-                }
-
+                response.sendRedirect(request.getContextPath() + "/reports/index");
             }
         }
     }
-
 }
