@@ -65,7 +65,7 @@ public class EmployeesUpdateServlet extends HttpServlet {
 
             e.setName(request.getParameter("name"));
             e.setAdmin_flag(Integer.parseInt(request.getParameter("admin_flag")));
-            e.setUpdatet_at(new Timestamp(System.currentTimeMillis()));
+            e.setUpdated_at(new Timestamp(System.currentTimeMillis()));
             e.setDelete_flag(0);
 
             List<String> errors = EmployeeValidator.validate(e, code_duplicate_check, password_check_flag);
